@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 from rine.extensions import mongo, mail
 from rine.main.routes import main
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../.env')
+print(dotenv_path)
 load_dotenv(dotenv_path)
 
 MONGO_URI = os.environ.get("MONGO_URI")
+print(MONGO_URI)
 
 
 def create_app():
