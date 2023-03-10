@@ -14,7 +14,7 @@ def index():
 
     if request.method == 'GET':
         msg = Message('Upcoming Events as of {}'.format(
-            datetime.today().strftime("%Y-%m-%d")), sender=os.environ.get('MAIL'), recipients=[os.environ.get('SEND_TO')])
+            datetime.today().strftime("%Y-%m-%d")), sender=os.environ.get('DMAIL'), recipients=[os.environ.get('SEND_TO')])
         curr_time = datetime.today()
         to_send = []
         for obj in email_db.find():
@@ -32,7 +32,6 @@ def index():
         return jsonify({'msg': 'success'})
     else:
         task = request.headers.get('task')
-        print(task+'dnscn')
         deadl = request.headers.get('deadl')
 
         inserted_email = email_db.insert_one({
