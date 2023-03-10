@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, request, jsonify, render_template
 from rine.extensions import mongo, mail
 from datetime import datetime
-from flask_mail import Mail, Message
+from flask_mail import Message
 
 main = Blueprint("main", __name__)
 
@@ -19,7 +19,10 @@ def index():
         to_send = []
         for obj in email_db.find():
             deadl = obj['deadl']
-            if ((deadl-curr_time).days == 2):
+            day_diff = (deadl - curr_time).days
+            if (day_diff < 0):
+                email_db.find_one_and_delete({'_id': obj['_id']})
+            elif (day_diff <= 30):
                 to_send.append(obj)
 
         if (len(to_send) > 0):
@@ -29,6 +32,7 @@ def index():
         return jsonify({'msg': 'success'})
     else:
         task = request.headers.get('task')
+        print(task+'dnscn')
         deadl = request.headers.get('deadl')
 
         inserted_email = email_db.insert_one({

@@ -6,11 +6,9 @@ from rine.extensions import mongo, mail
 from rine.main.routes import main
 
 dotenv_path = join(dirname(__file__), '../.env')
-print(dotenv_path)
 load_dotenv(dotenv_path)
 
 MONGO_URI = os.environ.get("MONGO_URI")
-print(MONGO_URI)
 
 
 def create_app():
@@ -18,8 +16,8 @@ def create_app():
     app.config['MONGO_URI'] = MONGO_URI
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USERNAME'] = os.environ.get('SEND_TO')
-    app.config['MAIL_PASSWORD'] = 'lvrhyizcmwtqmynj'
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL')
+    app.config['MAIL_PASSWORD'] = os.environ.get('PASSWORD')
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
     mongo.init_app(app)

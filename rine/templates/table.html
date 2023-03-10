@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Event</th>
+      <th scope="col">Deadline</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in to_send %}
+    <tr>
+      <td>{{ obj.task }}</td>
+      <td>{{ obj.deadl }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
